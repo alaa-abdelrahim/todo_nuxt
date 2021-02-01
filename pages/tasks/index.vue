@@ -14,8 +14,8 @@
           <template>
               <v-list-item>
                 <v-list-item-avatar>
-                  <v-avatar :color="task.status === 'Completed' ? 'pink' : 'blue'" size="56" class="white--text">
-                    {{ task.status === 'Completed' ? 'C' : 'In'}}
+                  <v-avatar :color="task.completed ? 'pink' : 'blue'" size="56" class="white--text">
+                    {{ task.completed ? 'C' : 'In'}}
                   </v-avatar>
                 </v-list-item-avatar>
 

@@ -7,14 +7,14 @@
 
           <v-toolbar-title class="text-uppercase">
             <span class="font-weight-light">todo</span>
-            <span>less</span>
+            <span>app</span>
           </v-toolbar-title>
           <v-spacer></v-spacer>
 
-          <v-btn plain color="pink" class="white--text">
+          <!-- <v-btn plain color="pink" class="white--text">
             Logout
             <v-icon right> mdi-logout </v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-toolbar>
       </v-card>
       <v-navigation-drawer v-model="drawer" absolute bottom temporary>

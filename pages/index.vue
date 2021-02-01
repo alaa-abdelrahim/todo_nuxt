@@ -2,7 +2,7 @@
   <v-container class="pt-10">
     <v-row>
       <v-col cols="12">
-        <h1 class="pink--text text-center">Welcome Back, {{ username }}</h1>
+        <h1 class="pink--text text-center">Welcome Back</h1>
       </v-col>
       <v-col cols="12" lg="4">
         <v-card class="mx-auto" max-width="344">
@@ -44,9 +44,6 @@
 <script>
 export default {
   computed: {
-    username () {
-      return this.$store.state.userName
-    },
     projectsCount () {
       return this.$store.state.data.length
     },
@@ -61,10 +58,10 @@ export default {
       return allTasks;
     },
     unCompletedTasks() {
-      return this.tasks.filter(task => task.status === 'Inprogress').length
+      return this.tasks.filter(task => !task.completed).length
     },
     completedTasks() {
-      return this.tasks.filter(task => task.status === 'Completed').length
+      return this.tasks.filter(task => task.completed).length
     }
   }
 };
