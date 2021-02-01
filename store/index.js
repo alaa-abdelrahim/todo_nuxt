@@ -81,12 +81,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-    changeStatus(state, specificTask) {
-        const project = state.data.filter(project => project.projectId === specificTask.projectId)[0];
-        const task = project.tasks.filter(projectTask => projectTask.id === specificTask.id)[0];
-        task.completed = !specificTask.completed;
-        localStorage.setItem('todoapp-data', JSON.stringify(state.data))
-    },
     addProject(state, project) {
         state.data.push({
             projectId: state.data[state.data.length - 1].projectId + 1,
@@ -94,6 +88,9 @@ export const mutations = {
             desc: project.desc,
             tasks: []
         })
+        localStorage.setItem('todoapp-data', JSON.stringify(state.data))
+    },
+    edit(state) {
         localStorage.setItem('todoapp-data', JSON.stringify(state.data))
     },
     deleteProject(state, id) {
@@ -109,6 +106,12 @@ export const mutations = {
             completed: false,
             desc: task.desc
         })
+        localStorage.setItem('todoapp-data', JSON.stringify(state.data))
+    },
+    changeStatus(state, specificTask) {
+        const project = state.data.filter(project => project.projectId === specificTask.projectId)[0];
+        const task = project.tasks.filter(projectTask => projectTask.id === specificTask.id)[0];
+        task.completed = !specificTask.completed;
         localStorage.setItem('todoapp-data', JSON.stringify(state.data))
     },
     deleteTask(state, task) {

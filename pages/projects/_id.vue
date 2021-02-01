@@ -9,12 +9,75 @@
             {{ project.projectName }}
             <!-- ==== add space between the name and the btn ==== -->
             <v-spacer />
-            <!-- ==== btn with dialog ==== -->
+            <!-- edit project descrption -->
+
+            <v-dialog v-model="editDialog" persistent max-width="600px">
+              <!-- //// btn to open the dialog //// -->
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="white"
+                  v-bind="attrs"
+                  v-on="on"
+                  fab
+                  small
+                >
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+              <!-- //// the modal //// -->
+              <v-card>
+                <v-card-title>
+                  <span class="headline">Edit Project Info</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12">
+                        <v-text-field
+                          v-model="project.projectName"
+                          label="Project Name"
+                          required
+                          autocomplete
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-textarea
+                          v-model="project.desc"
+                          label="Project Description"
+                          required
+                        ></v-textarea>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="editDialog = false">
+                    Close
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="editProject">
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <!-- --------------- -->
+          </v-card-title>
+          <!-- project description -->
+          <v-card-text class="pt-4">
+            {{ project.desc }}
+          </v-card-text>
+
+          <v-divider />
+
+          <div class="d-flex align-end flex-column mr-5 my-5">
+            <!-- ==== btn with dialog to add task ==== -->
             <v-dialog v-model="dialog" persistent max-width="600px">
               <!-- //// btn to open the dialog //// -->
               <template v-slot:activator="{ on, attrs }">
-                <v-btn color="white" v-bind="attrs" v-on="on" fab small>
+                <v-btn color="pink" dark v-bind="attrs" v-on="on">
                   <v-icon>mdi-plus</v-icon>
+                  add task
                 </v-btn>
               </template>
               <!-- //// the modal //// -->
@@ -45,7 +108,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="resetForm">
+                  <v-btn color="blue darken-1" text @click="resetTaskForm">
                     Close
                   </v-btn>
                   <v-btn color="blue darken-1" text @click="addTask">
@@ -54,14 +117,8 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <!-- //// end of modal //// -->
-          </v-card-title>
-          <!-- project description -->
-          <v-card-text class="pt-4">
-            {{ project.desc }}
-          </v-card-text>
-
-          <v-divider />
+            <!-- //// end of add task modal //// -->
+          </div>
 
           <!-- tasks -->
           <v-virtual-scroll
@@ -143,6 +200,7 @@ export default {
     return {
       dialog: false,
       alert: false,
+      editDialog: false,
       newTaskTitle: "",
       newTaskDesc: "",
     };
@@ -155,7 +213,7 @@ export default {
     },
   },
   methods: {
-    resetForm() {
+    resetTaskForm() {
       this.dialog = false;
       this.newTaskTitle = "";
       this.newTaskDesc = "";
@@ -167,6 +225,10 @@ export default {
         desc: this.newTaskDesc,
       });
       this.dialog = false;
+    },
+    editProject() {
+      this.$store.commit("edit");
+      this.editDialog = false;
     },
     deleteProject() {
       this.alert = false;
