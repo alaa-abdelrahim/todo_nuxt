@@ -52,7 +52,7 @@
     </v-content>
     <v-footer app>
       <p class="my-5 mx-auto">
-        &copy; {{ new Date().getFullYear() }} | All right reserved
+        &copy; {{ new Date().getFullYear() }} | All right reserved to Alaa Abd El-Rahim
       </p>
     </v-footer>
   </v-app>

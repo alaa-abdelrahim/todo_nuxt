@@ -2,7 +2,12 @@
   <v-container class="pt-10">
     <v-row>
       <v-col cols="12">
-        <h1 class="pink--text text-center">Welcome Back</h1>
+        <h1 class="pink--text text-center mb-5">
+          Welcome Back
+        </h1>
+        <p v-if="warning" class="text-center">
+          This is dummy data, you can customize everything by yourself for your personal usage
+        </p>
       </v-col>
       <v-col cols="12" lg="4">
         <v-card class="mx-auto" max-width="344">
@@ -43,26 +48,31 @@
 
 <script>
 export default {
+  data() {
+    return {
+      warning: !localStorage.getItem('todoapp-data')
+    }
+  },
   computed: {
     projectsCount () {
       return this.$store.state.data.length
     },
     tasks () {
-      let allTasks = [];
-      this.$store.state.data.forEach(project => {
-        project.tasks.forEach(task => {
+      const allTasks = []
+      this.$store.state.data.forEach((project) => {
+        project.tasks.forEach((task) => {
           allTasks.push(task)
         })
-      });
+      })
 
-      return allTasks;
+      return allTasks
     },
-    unCompletedTasks() {
+    unCompletedTasks () {
       return this.tasks.filter(task => !task.completed).length
     },
-    completedTasks() {
+    completedTasks () {
       return this.tasks.filter(task => task.completed).length
     }
   }
-};
+}
 </script>
